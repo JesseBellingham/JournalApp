@@ -9,13 +9,12 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import com.example.journalapp.R
-import com.example.journalapp.entities.Entry
-import java.time.LocalDate
+import com.example.journalapp.entities.JournalEntry
 import java.time.format.DateTimeFormatter
 
-class EntryAdapter(
+class JournalEntryAdapter(
     private val context: Context,
-    private val dataSource: ArrayList<Entry>) : BaseAdapter() {
+    private val dataSource: ArrayList<JournalEntry>) : BaseAdapter() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
@@ -34,10 +33,10 @@ class EntryAdapter(
         val body = view.findViewById(R.id.rowBody) as TextView
         val date = view.findViewById(R.id.rowDate) as TextView
 
-        val entry = getItem(position) as Entry
+        val entry = getItem(position) as JournalEntry
 
         body.text = entry.body
-        date.text = entry.date.toLocaleString()//.format(dateFormatter)
+        date.text = entry.createdAt.toLocaleString()//.format(dateFormatter)
 
         return view
     }

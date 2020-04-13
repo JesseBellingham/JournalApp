@@ -1,12 +1,14 @@
 package com.example.journalapp
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.room.Room
+import com.example.journalapp.db.AppDatabase
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -15,11 +17,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -38,7 +35,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun buttonAddEntryClick(v: View) {
+    override fun onStart() {
+        super.onStart()
 
+        val navController = findNavController(R.id.nav_host_fragment)
+        Navigation.setViewNavController(fabAddEntry, navController)
+
+        fabAddEntry.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+
+            navController.navigate(R.id.action_FirstFragment_to_SecondFragment)
+        }
     }
 }
