@@ -15,7 +15,7 @@ class JournalEntryViewModel(application: Application) : AndroidViewModel(applica
     val orderedEntries: LiveData<List<JournalEntry>>
 
     init {
-        val journalEntryDao = AppDatabase.getDatabase(application).journalEntryDao()
+        val journalEntryDao = AppDatabase.getDatabase(application, viewModelScope).journalEntryDao()
         repository = JournalEntryRepository(journalEntryDao)
         orderedEntries = repository.orderedEntries
     }
